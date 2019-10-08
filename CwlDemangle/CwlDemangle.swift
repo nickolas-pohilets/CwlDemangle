@@ -1235,7 +1235,7 @@ fileprivate extension Demangler {
 		case "f":
 			let size = try demangleIndex() - 1
 			try require(size > 0 && size <= maxTypeSize)
-			return SwiftSymbol(swiftBuiltinType: .builtinTypeName, name: "Builtin.Float\(size)")
+			return SwiftSymbol(swiftBuiltinType: .builtinTypeName, name: "Builtin.FPIEEE\(size)")
 		case "i":
 			let size = try demangleIndex() - 1
 			try require(size > 0 && size <= maxTypeSize)
@@ -2846,7 +2846,7 @@ fileprivate extension Demangler {
 			case "f":
 				let size = try scanner.readInt()
 				try scanner.match(scalar: "_")
-				type = SwiftSymbol(kind: .builtinTypeName, contents: .name("Builtin.Float\(size)"))
+				type = SwiftSymbol(kind: .builtinTypeName, contents: .name("Builtin.FPIEEE\(size)"))
 			case "i":
 				let size = try scanner.readInt()
 				try scanner.match(scalar: "_")
@@ -3597,14 +3597,14 @@ fileprivate struct SymbolPrinter {
 		case .reabstractionThunk: fallthrough
 		case .reabstractionThunkHelper:
 			if options.contains(.shortenThunk) {
-				_ = printOptional(name.children.at(name.children.count - 2), prefix: "thunk for ")
+				_ = printOptional(name.children.at(name.children.count - 1), prefix: "thunk for ")
 				break
 			}
 			target.write("reabstraction thunk ")
 			target.write(name.kind == .reabstractionThunkHelper ? "helper " : "")
 			_ = printOptional(name.children.first { $0.kind == .dependentGenericSignature }, suffix: " ")
-			_ = printOptional(name.children.at(name.children.count - 2), prefix: "from ")
-			_ = printOptional(name.children.at(name.children.count - 1), prefix: " to ")
+			_ = printOptional(name.children.at(name.children.count - 1), prefix: "from ")
+			_ = printOptional(name.children.at(name.children.count - 2), prefix: " to ")
 		case .mergedFunction: target.write(!options.contains(.shortenThunk) ? "merged " : "")
 		case .symbolicReference: target.write("symbolic reference \(name.index ?? 0)")
 		case .unresolvedSymbolicReference: target.write("$\(name.index ?? 0)")
@@ -3820,7 +3820,12 @@ fileprivate struct SymbolPrinter {
 			printFirstChild(name)
 			target.write(".")
 			_ = printOptional(name.children.at(1))
-		case .dependentAssociatedTypeRef: target.write(name.text ?? "")
+		case .dependentAssociatedTypeRef:
+            if name.children.count > 0 {
+                _ = printName(name.children[0])
+                target.write(".")
+            }
+            target.write(name.text ?? "")
 		case .reflectionMetadataBuiltinDescriptor: printFirstChild(name, prefix: "reflection metadata builtin descriptor ")
 		case .reflectionMetadataFieldDescriptor: printFirstChild(name, prefix: "reflection metadata field descriptor ")
 		case .reflectionMetadataAssocTypeDescriptor: printFirstChild(name, prefix: "reflection metadata associated type descriptor ")
