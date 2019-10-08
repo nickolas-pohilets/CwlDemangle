@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A194B8E234D15980027BAB7 /* SwiftSymbol+Dump.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A194B8C234D158C0027BAB7 /* SwiftSymbol+Dump.swift */; };
+		4A194B8F234D16580027BAB7 /* SwiftSymbol+Dump.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A194B8C234D158C0027BAB7 /* SwiftSymbol+Dump.swift */; };
 		C9A6CE261FBBED8700F9D9A5 /* CwlDemangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A6CE251FBBED8700F9D9A5 /* CwlDemangle.swift */; };
 		C9A6CE271FBBEE1800F9D9A5 /* CwlDemangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A6CE251FBBED8700F9D9A5 /* CwlDemangle.swift */; };
 		C9E054DE1CD4AE3F001658AB /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E054DD1CD4AE3F001658AB /* main.swift */; };
@@ -28,6 +30,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4A194B8C234D158C0027BAB7 /* SwiftSymbol+Dump.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SwiftSymbol+Dump.swift"; sourceTree = "<group>"; };
 		C9A6CE251FBBED8700F9D9A5 /* CwlDemangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CwlDemangle.swift; sourceTree = "<group>"; };
 		C9E054DA1CD4AE3F001658AB /* CwlDemangle */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CwlDemangle; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9E054DD1CD4AE3F001658AB /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -79,6 +82,7 @@
 				C9A6CE251FBBED8700F9D9A5 /* CwlDemangle.swift */,
 				C9E054DD1CD4AE3F001658AB /* main.swift */,
 				C9E054E61CD4B2DF001658AB /* manglings.txt */,
+				4A194B8C234D158C0027BAB7 /* SwiftSymbol+Dump.swift */,
 			);
 			path = CwlDemangle;
 			sourceTree = "<group>";
@@ -154,6 +158,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = C9E054D11CD4AE3F001658AB;
@@ -184,6 +189,7 @@
 			files = (
 				C9E054DE1CD4AE3F001658AB /* main.swift in Sources */,
 				C9A6CE261FBBED8700F9D9A5 /* CwlDemangle.swift in Sources */,
+				4A194B8F234D16580027BAB7 /* SwiftSymbol+Dump.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -193,6 +199,7 @@
 			files = (
 				C9A6CE271FBBEE1800F9D9A5 /* CwlDemangle.swift in Sources */,
 				C9E054EF1CD4DDA1001658AB /* CwlDemangleTests.swift in Sources */,
+				4A194B8E234D15980027BAB7 /* SwiftSymbol+Dump.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
