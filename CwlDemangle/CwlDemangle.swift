@@ -1608,8 +1608,8 @@ fileprivate extension Demangler {
 			return SwiftSymbol(kind: .protocolWitness, children: [conf, entity])
 		case "R", "r":
 			let genSig = pop(kind: .dependentGenericSignature)
-			let type2 = try require(pop(kind: .type))
 			let type1 = try require(pop(kind: .type))
+			let type2 = try require(pop(kind: .type))
 			if let gs = genSig {
 				return SwiftSymbol(kind: c == "R" ? .reabstractionThunkHelper : .reabstractionThunk, children: [gs, type1, type2])
 			} else {
