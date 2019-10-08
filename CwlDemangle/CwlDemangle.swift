@@ -3626,7 +3626,7 @@ fileprivate struct SymbolPrinter {
 			_ = printOptional(name.children.at(1), prefix: ".")
 			_ = printOptional(name.children.at(2), prefix: ": ")
 		case .defaultAssociatedConformanceAccessor:
-			_ = printOptional(name.children.at(0), prefix: "default associated conformance descriptor for ")
+			_ = printOptional(name.children.at(0), prefix: "default associated conformance accessor for ")
 			_ = printOptional(name.children.at(1), prefix: ".")
 			_ = printOptional(name.children.at(2), prefix: ": ")
 		case .associatedTypeDescriptor: printFirstChild(name, prefix: "associated type descriptor for ")
