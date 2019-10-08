@@ -478,7 +478,7 @@ extension SwiftSymbol {
 		case silBoxMutableField
 		case silBoxType
 		case silBoxTypeWithLayout
-		case specializationIsFragile
+		case isSerialized
 		case specializationPassID
 		case `static`
 		case structure
@@ -1842,7 +1842,7 @@ fileprivate extension Demangler {
 		let contents = demangleUniqueId ? (try demangleNatural().map { SwiftSymbol.Contents.index($0) } ?? SwiftSymbol.Contents.none) : SwiftSymbol.Contents.none
 		var specName = SwiftSymbol(kind: kind, contents: contents)
 		if isFragile {
-			specName.children.append(SwiftSymbol(kind: .specializationIsFragile))
+			specName.children.append(SwiftSymbol(kind: .isSerialized))
 		}
 		specName.children.append(SwiftSymbol(kind: .specializationPassID, contents: .index(UInt64(passId))))
 		return specName
@@ -2326,7 +2326,7 @@ fileprivate extension Demangler {
 		let c = try scanner.readScalar()
 		var children = [SwiftSymbol]()
 		if scanner.conditional(scalar: "q") {
-			children.append(SwiftSymbol(kind: .specializationIsFragile))
+			children.append(SwiftSymbol(kind: .isSerialized))
 		}
 		children.append(SwiftSymbol(kind: .specializationPassID, contents: .index(UInt64(try scanner.readScalar().value - 48))))
 		switch c {
@@ -3514,7 +3514,7 @@ fileprivate struct SymbolPrinter {
 		case .genericPartialSpecializationNotReAbstracted: printSpecializationPrefix(name, description: "generic not re-abstracted partial specialization", paramPrefix: "Signature = ")
 		case .genericSpecialization: printSpecializationPrefix(name, description: "generic specialization")
 		case .genericSpecializationNotReAbstracted: printSpecializationPrefix(name, description: "generic not re-abstracted specialization")
-		case .specializationIsFragile: target.write("preserving fragile attribute")
+		case .isSerialized: target.write("serialized")
 		case .genericSpecializationParam:
 			printFirstChild(name)
 			_ = printOptional(name.children.at(1), prefix: " with ")
@@ -4073,7 +4073,7 @@ fileprivate struct SymbolPrinter {
 		for c in name.children {
 			switch c.kind {
 			case .specializationPassID: break
-			case .specializationIsFragile:
+			case .isSerialized:
 				target.write(separator)
 				separator = ", "
 				_ = printName(c)

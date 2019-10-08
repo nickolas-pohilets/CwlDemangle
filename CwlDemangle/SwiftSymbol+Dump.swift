@@ -184,7 +184,7 @@ fileprivate extension SwiftSymbol.Kind {
         case .silBoxMutableField: return "SilBoxMutableField"
         case .silBoxType: return "SilBoxType"
         case .silBoxTypeWithLayout: return "SilBoxTypeWithLayout"
-        case .specializationIsFragile: return "SpecializationIsFragile"
+        case .isSerialized: return "IsSerialized"
         case .specializationPassID: return "SpecializationPassID"
         case .`static`: return "Static"
         case .structure: return "Structure"
