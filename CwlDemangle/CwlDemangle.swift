@@ -1625,6 +1625,7 @@ fileprivate extension Demangler {
 		case "f": return try demangleFunctionSpecialization()
 		case "K", "k":
 			let nodeKind: SwiftSymbol.Kind = c == "K" ? .keyPathGetterThunkHelper : .keyPathSetterThunkHelper
+            let isSerialized = scanner.conditional(scalar: "q")
 			var types = [SwiftSymbol]()
 			var node = pop(kind: .type)
 			while let n = node {
@@ -1645,6 +1646,9 @@ fileprivate extension Demangler {
 			for t in types {
 				result.children.append(t)
 			}
+            if isSerialized {
+                result.children.append(SwiftSymbol(kind: .isSerialized))
+            }
 			return result
 		case "l": return SwiftSymbol(kind: .associatedTypeDescriptor, child: try require(popAssociatedTypeName()))
 		case "L": return SwiftSymbol(kind: .protocolRequirementsBaseDescriptor, child: try require(popProtocol()))
@@ -3573,12 +3577,20 @@ fileprivate struct SymbolPrinter {
 			printFirstChild(name, prefix: " for ")
 		case .keyPathGetterThunkHelper:
 			printFirstChild(name, prefix: "key path getter for ", suffix: " : ")
-			_ = printOptional(name.children.at(1))
-			_ = printOptional(name.children.at(2))
+            for child in name.children[1...] {
+                if child.kind == .isSerialized {
+                    target.write(", ")
+                }
+                _ = printName(child)
+            }
 		case .keyPathSetterThunkHelper:
 			printFirstChild(name, prefix: "key path setter for ", suffix: " : ")
-			_ = printOptional(name.children.at(1))
-			_ = printOptional(name.children.at(2))
+			for child in name.children[1...] {
+                if child.kind == .isSerialized {
+                    target.write(", ")
+                }
+                _ = printName(child)
+            }
 		case .keyPathEqualsThunkHelper: fallthrough
 		case .keyPathHashThunkHelper:
 			target.write("key path index \(name.kind == .keyPathEqualsThunkHelper ? "equality" : "hash") operator for ")

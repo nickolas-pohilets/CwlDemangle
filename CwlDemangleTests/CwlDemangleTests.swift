@@ -3598,8 +3598,8 @@ class CwlDemangleTests: XCTestCase {
             XCTFail("Failed to demangle \(input). Got \(error), expected \(output)")
         }
     }
-    func test$s18keypaths_inlinable13KeypathStructV8computedSSvpACTKq () {
-        let input = "$s18keypaths_inlinable13KeypathStructV8computedSSvpACTKq "
+    func test$s18keypaths_inlinable13KeypathStructV8computedSSvpACTKq() {
+        let input = "$s18keypaths_inlinable13KeypathStructV8computedSSvpACTKq"
         let output = "key path getter for keypaths_inlinable.KeypathStruct.computed : Swift.String : keypaths_inlinable.KeypathStruct, serialized"
         do {
             let parsed = try parseMangledSwiftSymbol(input)
